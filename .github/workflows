@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhindora - All Characters Interactive Scene</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        header {
+            background: linear-gradient(135deg, #d32f2f, #ff8f00);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Interactive Stage / Scene Box */
+        .scene-stage {
+            background-color: #1e1e1e;
+            border: 2px solid #ff8f00;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(255, 143, 0, 0.15);
+        }
+
+        .scene-title {
+            color: #ffb300;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .scene-context {
+            color: #bbbbbb;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .dialogue-box {
+            background-color: #2a2a2a;
+            border-left: 5px solid #d32f2f;
+            padding: 1.5rem;
+            border-radius: 8px;
+            min-height: 110px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .speaker-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ffca28;
+            margin-bottom: 0.4rem;
+        }
+
+        .speaker-line {
+            font-size: 1.15rem;
+            font-style: italic;
+            color: #ffffff;
+        }
+
+        .play-all-btn {
+            margin-top: 1.5rem;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .play-all-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Character Grid */
+        .section-heading {
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #333;
+            padding-bottom: 0.5rem;
+            color: #ffca28;
+        }
+
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .char-card {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+        }
+
+        .char-card:hover, .char-card.active {
+            transform: translateY(-5px);
+            border-color: #ff8f00;
+            background-color: #252525;
+        }
+
+        .char-badge {
+            display: inline-block;
+            background-color: #333;
+            color: #ffca28;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            margin-bottom: 0.6rem;
+        }
+
+        .char-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .char-card p {
+            font-size: 0.88rem;
+            color: #aaaaaa;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #777;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            border-top: 1px solid #222;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🥁 DHINDORA 🥁</h1>
+        <p>BB Ki Vines Universe • The Great Family Chaos & Lottery Madness</p>
+    </header>
+
+    <div class="container">
+        <!-- Interactive Scene Stage -->
+        <section class="scene-stage">
+            <div class="scene-title">🎬 Scene: The Living Room Chaos</div>
+            <p class="scene-context">Click any character card below to hear their reaction in the scene, or play the full sequence!</p>
+            
+            <div class="dialogue-box" id="dialogueBox">
+                <div class="speaker-name" id="speakerName">Narrator</div>
+                <div class="speaker-line" id="speakerLine">"Babloo Ji just found out about the lottery ticket, and the entire BB Ki Vines universe has gathered in one room..."</div>
+            </div>
+
+            <button class="play-all-btn" onclick="playFullScene()">▶ Play Full All-Characters Scene</button>
+        </section>
+
+        <!-- Characters Grid -->
+        <h2 class="section-heading">All Characters (Click to Trigger Scene Line)</h2>
+        <div class="character-grid" id="characterGrid">
+            <!-- Cards injected via JavaScript -->
+        </div>
+    </div>
+
+    <footer>
+        Fan Tribute Webpage • Characters created & portrayed by Bhuvan Bam (plus Series Co-Stars)
+    </footer>
+
+    <script>
+        const characters = [
+            {
+                name: "Babloo Ji (Papa)",
+                actor: "Bhuvan Bam",
+                role: "The Lottery Winner",
+                line: "Arre Janki! Lottery lag gayi hai, par ticket kahan gaya?! Mera BP badh raha hai!"
+            },
+            {
+                name: "Janki (Mummy)",
+                actor: "Bhuvan Bam",
+                role: "The Practical Mom",
+                line: "Pehle chappal utaar ke andar aao! Aur woh purani pant toh maine raddi waale ko de di!"
+            },
+            {
+                name: "Bhuvan",
+                actor: "Bhuvan Bam",
+                role: "The Stressed Son",
+                line: "Papa, ek din toh shanti se jeene do! Yahan meri zindagi aur Tara ke saath date dono latki padi hain!"
+            },
+            {
+                name: "Titu Mama",
+                actor: "Bhuvan Bam",
+                role: "The Swag Master",
+                line: "Tension nahi lene ka bhanje! Tera Mama abhi zinda hai... bas thoda 11 Crore ka hisaab baaki hai!"
+            },
+            {
+                name: "Bancho",
+                actor: "Bhuvan Bam",
+                role: "The Loyal Best Friend",
+                line: "Bhai, party kab de raha hai? Maine toh pehle hi mohalle mein dhindora peet diya hai!"
+            },
+            {
+                name: "Sameer Fuddi",
+                actor: "Bhuvan Bam",
+                role: "The Savage Cousin",
+                line: "Kya haal hai fuffa ji? Suna hai crorepati ban ke bhi aapka budget abhi tak tight hai!"
+            },
+            {
+                name: "Babli Sir",
+                actor: "Bhuvan Bam",
+                role: "The Dramatic Teacher",
+                line: "Silence! Yeh ghar hai ya fish market? Main tum sabko class ke bahar murga bana dunga!"
+            },
+            {
+                name: "Papa Maakichu",
+                actor: "Bhuvan Bam",
+                role: "The Furious Neighbor",
+                line: "Aye Babloo! Tere ghar ke shor se meri neend kharab ho rahi hai! Chup kar varna...!"
+            },
+            {
+                name: "Dr. Tara",
+                actor: "Gayatri Bhardwaj",
+                role: "Bhuvan's Love Interest",
+                line: "Bhuvan, tumhari family sach mein bahut entertaining hai, par abhi humein woh ticket dhoondhna chahiye!"
+            },
+            {
+                name: "Kavita Mami",
+                actor: "Sanjeeda Sheikh",
+                role: "Titu Mama's Wife (Season 2)",
+                line: "Titu ji, agar is baar koi naya drama kiya na, toh mere sasural waale aapko chhodenge nahi!"
+            }
+        ];
+
+        const grid = document.getElementById("characterGrid");
+        const speakerName = document.getElementById("speakerName");
+        const speakerLine = document.getElementById("speakerLine");
+        let sceneTimeout;
+
+        // Render Character Cards
+        characters.forEach((char, index) => {
+            const card = document.createElement("div");
+            card.className = "char-card";
+            card.id = `char-${index}`;
+            card.innerHTML = `
+                <span class="char-badge">${char.actor}</span>
+                <h3>${char.name}</h3>
+                <p>${char.role}</p>
+            `;
+            card.onclick = () => {
+                clearTimeout(sceneTimeout);
+                activateCharacter(index);
+            };
+            grid.appendChild(card);
+        });
+
+        function activateCharacter(index) {
+            document.querySelectorAll(".char-card").forEach(c => c.classList.remove("active"));
+            const activeCard = document.getElementById(`char-${index}`);
+            if (activeCard) activeCard.classList.add("active");
+
+            speakerName.textContent = characters[index].name;
+            speakerLine.textContent = `"${characters[index].line}"`;
+        }
+
+        function playFullScene() {
+            clearTimeout(sceneTimeout);
+            let current = 0;
+
+            function nextLine() {
+                if (current < characters.length) {
+                    activateCharacter(current);
